@@ -1,4 +1,4 @@
-package com.example.myvideoplayer.ui
+package com.example.myvideoplayer.ui.history
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
