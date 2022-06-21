@@ -6,6 +6,7 @@
    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
+        android:name="com.example.MyVideoPlayer"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -16,10 +17,10 @@
         android:theme="@style/Theme.MyVideoPlayer"
         tools:targetApi="31">
         <activity
-            android:name=".ui.HistoryActivity"
+            android:name=".ui.history.HistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.videolist.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
