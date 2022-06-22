@@ -30,6 +30,7 @@ class VideoPlayerComponent(context: Context, playerView: PlayerView, mediaItems:
         player = ExoPlayer.Builder(context)
             .build()
             .also { exoPlayer ->
+                playerView.player = exoPlayer
                 exoPlayer.addMediaItems(mediaItems)
                 exoPlayer.playWhenReady = playWhenReady
                 exoPlayer.seekTo(currentItem, playbackPosition)

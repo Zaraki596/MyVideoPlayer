@@ -31,7 +31,7 @@ class VideoViewModel @Inject constructor(
     fun getAllVideos() {
         viewModelScope.launch {
             repository.getAllVideosList().collect {
-                _videoData.value = it
+                _videoData.emit(it)
             }
         }
     }
