@@ -17,13 +17,13 @@ interface VideoDao {
     suspend fun insertVideo(video: Video)
 
     @Query("Update Video SET viewCount = :viewCount where id = :id")
-    suspend fun setViewCount(viewCount: Int, id: Int) : Int
+    suspend fun setViewCount(viewCount: Int, id: String) : Int
 
     @Query("Update Video SET seekTime = :seekTime where id = :id")
-    suspend fun setSeekTime(seekTime: Long?, id: Int) : Int
+    suspend fun setSeekTime(seekTime: Long?, id: String) : Int
 
     @Query("Update Video SET lastViewedTime = :lastViewedTime where id = :id")
-    suspend fun setLastViewedTime(lastViewedTime: Long?, id: Int) : Int
+    suspend fun setLastViewedTime(lastViewedTime: Long?, id: String) : Int
 
     @Delete
     suspend fun deleteVideo(video: Video)

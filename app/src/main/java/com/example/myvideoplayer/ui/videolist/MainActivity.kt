@@ -46,7 +46,12 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.videoData.collect() { videosList ->
                 for (video in videosList) {
-                    mediaList.add(MediaItem.fromUri(video.videoUrl))
+                    mediaList.add(
+                        MediaItem.Builder()
+                            .setUri(video.videoUrl)
+                            .setMediaId(video.id)
+                            .build()
+                    )
                 }
                 playlistAdapter.submitList(videosList)
             }
@@ -75,8 +80,11 @@ class MainActivity : AppCompatActivity() {
         player = null
     }
 
-    private fun onVideoClicked(video: Video) {
-
+    private fun onVideoClicked(video: Video, position: Int) {
+        player?.apply {
+            setMediaItem(mediaList[position])
+            prepare()
+        }
     }
 
     public override fun onStart() {

@@ -13,7 +13,7 @@ import com.example.myvideoplayer.R
 import com.example.myvideoplayer.data.model.Video
 import com.example.myvideoplayer.databinding.ItemVideoBinding
 
-class PlaylistAdapter(private val onItemClicked: (Video) -> Unit) :
+class PlaylistAdapter(private val onItemClicked: (Video, position: Int) -> Unit) :
     ListAdapter<Video, PlaylistAdapter.PlaylistViewHolder>(VideoDC) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = PlaylistViewHolder(
@@ -22,7 +22,7 @@ class PlaylistAdapter(private val onItemClicked: (Video) -> Unit) :
     )
 
     override fun onBindViewHolder(holder: PlaylistViewHolder, position: Int) =
-        holder.bind(getItem(position), onItemClicked)
+        holder.bind(getItem(position), position, onItemClicked)
 
     fun swapData(data: List<Video>) {
         submitList(data.toMutableList())
@@ -32,20 +32,21 @@ class PlaylistAdapter(private val onItemClicked: (Video) -> Unit) :
         private val binding: ItemVideoBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Video, onItemClicked: (Video) -> Unit) = with(itemView) {
-            binding.tvVideoTitle.text = item.title
-            binding.tvViewCount.text = context.getString(R.string.views_count, item.viewCount)
+        fun bind(item: Video, position: Int, onItemClicked: (Video, position: Int) -> Unit) =
+            with(itemView) {
+                binding.tvVideoTitle.text = item.title
+                binding.tvViewCount.text = context.getString(R.string.views_count, item.viewCount)
 
-            binding.root.setOnClickListener {
-                if (!item.isSelected) {
-                    item.isSelected = true
-                    setBackgroundColor(context.getColor(androidx.appcompat.R.color.dim_foreground_disabled_material_light))
-                    onItemClicked(item)
+                binding.root.setOnClickListener {
+                    if (!item.isSelected) {
+                        item.isSelected = true
+                        setBackgroundColor(context.getColor(androidx.appcompat.R.color.dim_foreground_disabled_material_light))
+                        onItemClicked(item, position)
+                    }
                 }
+
+
             }
-
-
-        }
     }
 
     companion object {

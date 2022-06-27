@@ -13,7 +13,7 @@ import com.squareup.moshi.JsonClass
 @Entity
 data class Video(
     @PrimaryKey
-    val id: Int,
+    val id: String,
     val title: String,
     @Json(name = "uri") val videoUrl: String,
     var viewCount: Int = 0,

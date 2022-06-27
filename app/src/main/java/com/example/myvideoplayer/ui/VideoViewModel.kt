@@ -20,9 +20,8 @@ class VideoViewModel @Inject constructor(
     private val repository: VideoRepository
 ) : ViewModel() {
 
-
-    private val _player = MutableLiveData<Player>()
-    val player: LiveData<Player> get() = _player
+    private val _historyVideoData = MutableStateFlow<List<Video>>(listOf())
+    val historyVideoData: StateFlow<List<Video>> get() = _historyVideoData
 
     private val _videoData = MutableStateFlow<List<Video>>(listOf())
     val videoData: StateFlow<List<Video>> get() = _videoData
@@ -33,6 +32,33 @@ class VideoViewModel @Inject constructor(
             repository.getAllVideosList().collect {
                 _videoData.emit(it)
             }
+        }
+    }
+
+    fun getAllHistoryVideos() {
+        viewModelScope.launch {
+            repository.getHistoryVideos().collect {
+                _historyVideoData.emit(it)
+            }
+        }
+    }
+
+    fun setVideoViews(video: Video) {
+        viewModelScope.launch {
+            repository.setVideoCount(video)
+        }
+    }
+
+    fun setVideoTimeStamp(video: Video){
+        viewModelScope.launch{
+            repository.setVideoTimeStamp(video)
+        }
+    }
+
+
+    fun setVideoLastViewedTime(video: Video){
+        viewModelScope.launch{
+            repository.setLastViewedTime(video)
         }
     }
 
